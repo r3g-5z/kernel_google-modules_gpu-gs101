@@ -71,7 +71,7 @@ endif
 #
 
 # Driver version string which is returned to userspace via an ioctl
-MALI_RELEASE_NAME ?= '"r38p1-01eac0"'
+MALI_RELEASE_NAME ?= '"r38p2-01eac0"'
 
 # We are building for Pixel
 CONFIG_MALI_PLATFORM_NAME="pixel"
@@ -133,6 +133,7 @@ ccflags-y += \
     -DMALI_JIT_PRESSURE_LIMIT_BASE=$(MALI_JIT_PRESSURE_LIMIT_BASE) \
     -DMALI_INCREMENTAL_RENDERING_JM=$(MALI_INCREMENTAL_RENDERING_JM) \
     -DMALI_PLATFORM_DIR=$(MALI_PLATFORM_DIR)
+
 
 ifeq ($(KBUILD_EXTMOD),)
 # in-tree

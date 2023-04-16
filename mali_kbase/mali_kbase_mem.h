@@ -425,7 +425,10 @@ struct kbase_va_region {
 #define KBASE_REG_RESERVED_BIT_23   (1ul << 23)
 #endif /* !MALI_USE_CSF */
 
-/* Bit 24 is currently unused and is available for use for a new flag */
+/* Whilst this flag is set the GPU allocation is not supposed to be freed by
+ * user space. The flag will remain set for the lifetime of JIT allocations.
+ */
+#define KBASE_REG_NO_USER_FREE      (1ul << 24)
 
 /* Memory has permanent kernel side mapping */
 #define KBASE_REG_PERMANENT_KERNEL_MAPPING (1ul << 25)

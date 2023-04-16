@@ -1146,7 +1146,9 @@ struct kbase_device {
 #endif /* CONFIG_MALI_DEVFREQ */
 	unsigned long previous_frequency;
 
+#if !MALI_USE_CSF
 	atomic_t job_fault_debug;
+#endif /* !MALI_USE_CSF */
 
 #if IS_ENABLED(CONFIG_DEBUG_FS)
 	struct dentry *mali_debugfs_directory;
@@ -1157,11 +1159,13 @@ struct kbase_device {
 	u64 debugfs_as_read_bitmap;
 #endif /* CONFIG_MALI_DEBUG */
 
+#if !MALI_USE_CSF
 	wait_queue_head_t job_fault_wq;
 	wait_queue_head_t job_fault_resume_wq;
 	struct workqueue_struct *job_fault_resume_workq;
 	struct list_head job_fault_event_list;
 	spinlock_t job_fault_event_lock;
+#endif /* !MALI_USE_CSF */
 
 #if !MALI_CUSTOMER_RELEASE
 	struct {
@@ -1532,6 +1536,8 @@ struct kbase_sub_alloc {
  * @event_closed:         Flag set through POST_TERM ioctl, indicates that Driver
  *                        should stop posting events and also inform event handling
  *                        thread that context termination is in progress.
+ * @event_workq:          Workqueue for processing work items corresponding to atoms
+ *                        that do not return an event to userspace.
  * @event_count:          Count of the posted events to be consumed by Userspace.
  * @event_coalesce_count: Count of the events present in @event_coalesce_list.
  * @flags:                bitmap of enums from kbase_context_flags, indicating the
@@ -1931,7 +1937,9 @@ struct kbase_context {
 
 	u64 limited_core_mask;
 
+#if !MALI_USE_CSF
 	void *platform_data;
+#endif
 };
 
 #ifdef CONFIG_MALI_CINSTR_GWT

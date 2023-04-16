@@ -122,6 +122,9 @@ void kbase_ctx_sched_release_ctx(struct kbase_context *kctx);
  * This function should be called when a context is being destroyed. The
  * context must no longer have any reference. If it has been assigned an
  * address space before then the AS will be unprogrammed.
+ *
+ * The kbase_device::mmu_hw_mutex and kbase_device::hwaccess_lock locks must be
+ * held whilst calling this function.
  */
 void kbase_ctx_sched_remove_ctx(struct kbase_context *kctx);
 
